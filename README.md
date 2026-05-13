@@ -2,7 +2,7 @@
 
 Projeto laboratorial de Engenharia de Software para testes de caixa-preta/aceitação com Selenium WebDriver.
 
-Website em teste: [https://www.blackbattleship.com/](https://www.blackbattleship.com/)
+Website em teste: [https://papergames.io/en/battleship](https://papergames.io/en/battleship)
 
 > **Vídeo de demonstração:** a adicionar no final da Parte 2.
 
