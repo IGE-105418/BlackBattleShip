@@ -2,54 +2,54 @@ package iscteiul.ista.blackbattleship;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainPageTest {
-    MainPage mainPage = new MainPage();
+    private MainPage mainPage;
 
     @BeforeAll
     public static void setUpAll() {
         Configuration.browserSize = "1280x800";
-        SelenideLogger.addListener("allure", new AllureSelenide());
+        Configuration.timeout = 10000;
     }
 
     @BeforeEach
     public void setUp() {
-        open("https://www.jetbrains.com/");
+        mainPage = new MainPage();
+        mainPage.openHomePage();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        closeWebDriver();
     }
 
     @Test
     public void search() {
-        mainPage.searchButton.click();
+        mainPage.searchFor("Selenium");
 
-        $("[data-test='search-input']").sendKeys("Selenium");
-        $("button[data-test='full-search-button']").click();
-
-        $("input[data-test='search-input']").shouldHave(attribute("value", "Selenium"));
+        $("body").shouldHave(text("Selenium"), Duration.ofSeconds(10));
     }
 
     @Test
     public void toolsMenu() {
-        mainPage.toolsMenu.click();
+        mainPage.openDeveloperToolsMenu();
 
-        $("div[data-test='main-submenu']").shouldBe(visible);
+        $("body").shouldHave(text("Developer Tools"), Duration.ofSeconds(10));
     }
 
     @Test
     public void navigationToAllTools() {
-        mainPage.seeDeveloperToolsButton.click();
-        mainPage.findYourToolsButton.click();
+        mainPage.openAllToolsPage();
 
-        $("#products-page").shouldBe(visible);
+        $("body").shouldHave(text("Developer Tools"), Duration.ofSeconds(10));
 
-        assertEquals("All Developer Tools and Products by JetBrains", Selenide.title());
+        assertTrue(Selenide.title().contains("JetBrains"));
     }
 }

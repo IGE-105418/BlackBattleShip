@@ -37,3 +37,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+# Resultados locais do Allure
+allure-results/
