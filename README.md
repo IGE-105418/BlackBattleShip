@@ -1,9 +1,10 @@
 # BlackBattleShip – Testes de Aceitação com Selenium
 
-Suíte de testes automáticos de caixa-preta para o website **Black BattleShip**  
-([https://www.blackbattleship.com/](https://www.blackbattleship.com/))
+Projeto laboratorial de Engenharia de Software para testes de caixa-preta/aceitação com Selenium WebDriver.
 
-> **Vídeo de demonstração:** *(link YouTube a adicionar após gravação)*
+Website em teste: [https://papergames.io/en/battleship](https://papergames.io/en/battleship)
+
+> **Vídeo de demonstração:** a adicionar no final da Parte 2.
 
 ---
 
@@ -11,294 +12,235 @@ Suíte de testes automáticos de caixa-preta para o website **Black BattleShip**
 
 | Número | Nome |
 |--------|------|
-| _(preencher)_ | _(preencher)_ |
-| _(preencher)_ | _(preencher)_ |
-| _(preencher)_ | _(preencher)_ |
+| 111722 | Eduardo Carvalho |
+| 105418 | Francisco Cabral |
+| 105333 | Francisca Bastos |
+| 111825 | Fredson Munguambe |
 
 ---
 
-## Scrum Product Backlog – Black BattleShip
+## Objetivo do Projeto
 
-> Gerado com apoio de LLM. User Stories em português de Portugal.
+Este projeto tem como objetivo automatizar testes de aceitação para o website BlackBattleShip, seguindo o padrão **Page Object Model (POM)**.
 
-### US1 – Aceder à página principal e verificar disponibilidade do jogo
-**Como** jogador, **quero** aceder à homepage do Black BattleShip **para** confirmar que o site está disponível e apresenta os elementos principais do jogo.
-
-### US2 – Criar um nickname e iniciar sessão de jogo
-**Como** jogador, **quero** introduzir um nickname único **para** ser identificado nas partidas que dispute.
-
-### US3 – Iniciar jogo contra o robot (modo single player)
-**Como** jogador individual, **quero** iniciar uma partida contra o robot **para** praticar sem necessitar de outro jogador humano.
-
-### US4 – Criar uma sala de jogo multiplayer e obter o link/código
-**Como** anfitrião, **quero** criar uma sala de jogo multiplayer **para** convidar outro jogador através de um link ou código único.
-
-### US5 – Entrar numa sala multiplayer com código/link
-**Como** jogador convidado, **quero** entrar numa sala existente com o código ou link fornecido **para** disputar uma partida com o anfitrião.
-
-### US6 – Consultar as instruções e regras do jogo
-**Como** jogador novo, **quero** aceder às instruções do jogo **para** aprender as regras antes de começar a jogar.
-
-### US7 – Posicionar navios no tabuleiro antes do jogo começar
-**Como** jogador, **quero** colocar os meus navios no tabuleiro de 10×10 **para** definir a minha estratégia de defesa.
-
-### US8 – Efectuar jogadas durante a partida (atacar células do adversário)
-**Como** jogador, **quero** clicar em células do tabuleiro adversário **para** tentar afundar os navios do oponente.
-
-### US9 – Receber feedback visual de acerto ou falha após cada jogada
-**Como** jogador, **quero** ver se a minha jogada foi um acerto (hit) ou uma falha (miss) **para** adaptar a minha estratégia de ataque.
-
-### US10 – Visualizar mensagem de fim de jogo (vitória ou derrota)
-**Como** jogador, **quero** ver uma mensagem clara de vitória ou derrota no fim da partida **para** saber o resultado do jogo.
-
-### US11 – Iniciar uma nova partida após o fim do jogo
-**Como** jogador, **quero** poder iniciar uma nova partida rapidamente após o fim do jogo **para** jogar de novo sem reiniciar o browser.
-
-### US12 – Organizar um campeonato entre vários jogadores
-**Como** organizador, **quero** criar um campeonato com vários jogadores **para** gerir partidas em formato de torneio.
+Os testes procuram validar o comportamento da aplicação do ponto de vista do utilizador, sem depender da implementação interna do sistema.
 
 ---
 
+## Scrum Product Backlog – BlackBattleShip
+
+> Backlog criado com apoio de LLM, com base na análise funcional do website BlackBattleShip.
+
+### US1 – Aceder à página principal
+
+**Como** jogador,  
+**quero** aceder à página principal do BlackBattleShip,  
+**para** confirmar que o jogo está disponível e pronto a ser utilizado.
+
+**Critérios de aceitação:**
+- A página principal deve abrir sem erro.
+- O título ou conteúdo principal do jogo deve estar visível.
+- Deve existir uma forma clara de iniciar ou configurar uma partida.
+
 ---
 
-## Tecnologias
+### US2 – Criar nickname
 
-| Tecnologia             | Versão   | Propósito                              |
-|------------------------|----------|----------------------------------------|
-| Java                   | 21       | Linguagem de programação               |
-| Maven                  | 3.9+     | Gestão de dependências e build         |
-| Selenium WebDriver     | 4.27.0   | Automação do browser                   |
-| WebDriverManager       | 5.9.2    | Gestão automática do ChromeDriver      |
-| JUnit 5 (Jupiter)      | 5.11.3   | Framework de testes                    |
-| Chrome / ChromeDriver  | Latest   | Browser alvo                           |
+**Como** jogador,  
+**quero** introduzir um nickname,  
+**para** ser identificado durante a partida.
+
+**Critérios de aceitação:**
+- Deve existir um campo para introduzir o nickname.
+- O nickname introduzido deve ficar registado na interface.
+- O jogador deve conseguir continuar após preencher o nickname.
 
 ---
 
-## Estrutura do Projeto
+### US3 – Jogar contra o robot
 
-```
+**Como** jogador individual,  
+**quero** iniciar uma partida contra o robot,  
+**para** poder jogar sem precisar de outro jogador humano.
+
+**Critérios de aceitação:**
+- Deve existir uma opção para jogar contra o robot.
+- Ao selecionar essa opção, o jogo deve iniciar ou avançar para a preparação da partida.
+- O tabuleiro de jogo deve ficar acessível ao jogador.
+
+---
+
+### US4 – Criar jogo multiplayer
+
+**Como** anfitrião,  
+**quero** criar uma partida multiplayer,  
+**para** convidar outro jogador a entrar no jogo.
+
+**Critérios de aceitação:**
+- Deve existir uma opção para criar uma partida multiplayer.
+- O sistema deve gerar um link ou código de convite.
+- O link ou código deve poder ser usado por outro jogador.
+
+---
+
+### US5 – Entrar numa partida multiplayer
+
+**Como** jogador convidado,  
+**quero** entrar numa partida através de um link ou código,  
+**para** jogar contra outro jogador.
+
+**Critérios de aceitação:**
+- O jogador deve conseguir abrir o link ou inserir o código.
+- A aplicação deve reconhecer a sala de jogo.
+- O jogador deve conseguir juntar-se à partida.
+
+---
+
+### US6 – Consultar instruções/regras
+
+**Como** jogador novo,  
+**quero** consultar as instruções do jogo,  
+**para** compreender as regras antes de começar.
+
+**Critérios de aceitação:**
+- Deve existir uma área ou ligação para instruções/regras.
+- As regras devem ser apresentadas de forma legível.
+- O jogador deve conseguir voltar ao fluxo principal do jogo.
+
+---
+
+### US7 – Posicionar navios
+
+**Como** jogador,  
+**quero** posicionar os meus navios no tabuleiro,  
+**para** preparar a minha estratégia de defesa.
+
+**Critérios de aceitação:**
+- O tabuleiro do jogador deve estar visível.
+- O jogador deve conseguir selecionar ou posicionar navios.
+- O sistema deve impedir posições inválidas.
+
+---
+
+### US8 – Confirmar posicionamento dos navios
+
+**Como** jogador,  
+**quero** confirmar a posição dos meus navios,  
+**para** iniciar a partida com a minha configuração escolhida.
+
+**Critérios de aceitação:**
+- Deve existir uma ação para confirmar o posicionamento.
+- A partida só deve avançar quando a configuração for válida.
+- O jogador deve receber feedback se o posicionamento estiver incompleto ou inválido.
+
+---
+
+### US9 – Atacar uma célula adversária
+
+**Como** jogador,  
+**quero** clicar numa célula do tabuleiro adversário,  
+**para** tentar atingir um navio inimigo.
+
+**Critérios de aceitação:**
+- O tabuleiro adversário deve estar visível durante o turno do jogador.
+- O jogador deve conseguir selecionar uma célula válida.
+- O sistema deve registar a jogada efetuada.
+
+---
+
+### US10 – Ver resultado da jogada
+
+**Como** jogador,  
+**quero** receber feedback após atacar uma célula,  
+**para** saber se acertei ou falhei.
+
+**Critérios de aceitação:**
+- A célula atacada deve apresentar feedback visual.
+- O sistema deve distinguir entre acerto e falha.
+- O jogador não deve conseguir atacar novamente a mesma célula como se fosse nova.
+
+---
+
+### US11 – Alternar turnos
+
+**Como** jogador,  
+**quero** que o sistema alterne os turnos corretamente,  
+**para** garantir que a partida decorre de forma justa.
+
+**Critérios de aceitação:**
+- Após uma jogada, o turno deve passar para o adversário quando aplicável.
+- O jogador deve perceber visualmente quando é o seu turno.
+- O jogador não deve conseguir jogar fora do seu turno.
+
+---
+
+### US12 – Ver fim de jogo
+
+**Como** jogador,  
+**quero** ver uma mensagem de vitória ou derrota no fim da partida,  
+**para** saber claramente o resultado final.
+
+**Critérios de aceitação:**
+- O jogo deve detetar quando todos os navios de um jogador foram destruídos.
+- Deve ser apresentada uma mensagem de vitória ou derrota.
+- A partida deve impedir novas jogadas após terminar.
+
+---
+
+### US13 – Iniciar nova partida
+
+**Como** jogador,  
+**quero** iniciar uma nova partida depois do fim do jogo,  
+**para** poder jogar novamente sem dificuldade.
+
+**Critérios de aceitação:**
+- Deve existir uma opção para reiniciar ou criar uma nova partida.
+- A aplicação deve voltar ao estado inicial ou de configuração.
+- Os dados da partida anterior não devem interferir com a nova partida.
+
+---
+
+### US14 – Criar campeonato
+
+**Como** organizador,  
+**quero** criar um campeonato entre vários jogadores,  
+**para** organizar partidas em formato competitivo.
+
+**Critérios de aceitação:**
+- Deve existir uma opção relacionada com campeonatos.
+- O organizador deve conseguir configurar ou iniciar o campeonato.
+- O sistema deve apresentar informação relevante sobre os participantes ou partidas.
+
+---
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Propósito |
+|-----------|-----------|
+| Java 21 | Linguagem de programação |
+| Maven | Gestão de dependências e execução dos testes |
+| JUnit 5 | Framework de testes |
+| Selenium WebDriver 4 | Automação do browser |
+| Selenide | Simplificação dos testes sobre Selenium |
+| Google Chrome | Browser usado nos testes |
+
+---
+
+## Estrutura Atual do Projeto
+
+```text
 BlackBattleShip/
 │
-├── pom.xml                          # Configuração Maven
-├── browsers.json                    # Configuração de browsers
-├── README.md                        # Este ficheiro
-│
-├── docs/
-│   ├── ProductBacklog.md            # Backlog completo do produto
-│   └── UserStories.md               # User Stories e rastreabilidade
-│
-├── reports/                         # Relatórios de execução (gerados)
+├── pom.xml
+├── browsers.json
+├── README.md
+├── reports/
 │
 └── src/
-    ├── main/
-    │   └── java/
-    │       └── pages/               # Page Object Model (POM)
-    │           ├── BasePage.java        ← Classe base com métodos partilhados
-    │           ├── MainPage.java        ← Homepage / Menu principal
-    │           ├── GamePage.java        ← Tabuleiro de jogo
-    │           ├── LobbyPage.java       ← Lobby multiplayer
-    │           └── InstructionsPage.java← Página de instruções
-    │
     └── test/
         └── java/
-            └── tests/               # Classes de Teste JUnit 5
-                ├── BaseTest.java        ← Setup/Teardown do WebDriver
-                ├── UserStoryTest1.java  ← US1: Homepage e Verificação
-                ├── UserStoryTest2.java  ← US2: Nickname e Jogo vs Robot
-                ├── UserStoryTest3.java  ← US3: Instruções
-                └── UserStoryTest4.java  ← US4: Multiplayer / Lobby
-```
-
----
-
-## Padrão de Design: Page Object Model (POM)
-
-```
-┌──────────────────────────┐       ┌──────────────────────────┐
-│     Classe de Teste       │  usa  │     Page Object           │
-│  (src/test/java/tests/)   │──────▶│  (src/main/java/pages/)  │
-│                           │       │                           │
-│  @BeforeEach setUp()      │       │  Localizadores (By)       │
-│  @AfterEach tearDown()    │       │  Métodos de interacção    │
-│  @Test métodos            │       │  Waits explícitos         │
-│  JUnit Assertions         │       │  Herda de BasePage        │
-└──────────────────────────┘       └──────────────────────────┘
-```
-
-### Hierarquia de classes
-
-```
-BasePage
-  ├── MainPage
-  ├── GamePage
-  ├── LobbyPage
-  └── InstructionsPage
-
-BaseTest
-  ├── UserStoryTest1
-  ├── UserStoryTest2
-  ├── UserStoryTest3
-  └── UserStoryTest4
-```
-
----
-
-## User Stories Implementadas
-
-| ID  | User Story                          | Testes | Estado     |
-|-----|-------------------------------------|--------|------------|
-| US1 | Acesso e verificação da homepage    | 7      | Concluída  |
-| US2 | Nickname e jogo vs robot            | 6      | Concluída  |
-| US3 | Navegação nas instruções            | 6      | Concluída  |
-| US4 | Lobby e sala multiplayer            | 7      | Concluída  |
-| —   | **Total**                           | **26** |            |
-
----
-
-## Pré-requisitos
-
-1. **Java 21** instalado e na `PATH`
-2. **Maven 3.9+** instalado e na `PATH`
-3. **Google Chrome** instalado (WebDriverManager trata do ChromeDriver automaticamente)
-4. Ligação à internet (para aceder a `blackbattleship.com` e para WebDriverManager)
-
-Verificar versões:
-```bash
-java -version
-mvn -version
-```
-
----
-
-## Como Executar os Testes
-
-### Opção 1 – Via IntelliJ IDEA (recomendado para desenvolvimento)
-
-1. Abrir o projeto: **File → Open** → seleccionar a pasta `BlackBattleShip`
-2. Aguardar que o IntelliJ indexe o Maven e descarregue dependências
-3. Clicar com o botão direito numa classe de teste → **Run 'UserStoryTest1'**
-4. Para executar todos: clicar com o botão direito na pasta `tests` → **Run 'All Tests'**
-
-**Atalho rápido:**
-- `Ctrl+Shift+F10` na classe aberta → executa a classe
-- `Shift+F10` → re-executa o último teste
-
-### Opção 2 – Via Maven (linha de comandos)
-
-```bash
-# Executar todos os testes
-mvn test
-
-# Executar apenas uma classe específica
-mvn test -Dtest=UserStoryTest1
-
-# Executar apenas um método específico
-mvn test -Dtest=UserStoryTest1#testHomepageOpens
-
-# Executar com output detalhado
-mvn test -Dsurefire.useFile=false
-```
-
-### Opção 3 – Executar em modo headless (sem janela Chrome)
-
-Descomentar a linha em `BaseTest.java`:
-```java
-// options.addArguments("--headless=new");  ← remover o //
-```
-
----
-
-## Configuração do WebDriver
-
-O `WebDriverManager` (incluído no `pom.xml`) gere automaticamente o ChromeDriver:
-
-```java
-WebDriverManager.chromedriver().setup();  // em BaseTest.java
-```
-
-Não é necessário descarregar nem configurar manualmente o `chromedriver.exe`.
-
-> **Nota:** Em ambientes sem internet, descarregar manualmente o ChromeDriver compatível
-> com a versão do Chrome instalado e colocar na `PATH` do sistema.
-
----
-
-## Ajustar Localizadores (Seletores CSS/XPath)
-
-O site é uma **Single Page Application (SPA)** em JavaScript. Se algum teste falhar
-com `TimeoutException` ou `NoSuchElementException`:
-
-1. Abrir o site no Chrome e premir **F12** (DevTools)
-2. Seleccionar o elemento desejado com o inspector
-3. Verificar o `id`, `class`, atributos `data-*` e texto
-4. Actualizar o localizador na classe Page Object correspondente
-
-**Exemplo de como encontrar um selector:**
-```
-DevTools → Elements → Ctrl+F → pesquisar pela classe ou ID
-→ clicar com botão direito → Copy → Copy selector
-```
-
-Os localizadores estão centralizados nos Page Objects (`src/main/java/pages/`),
-portanto qualquer ajuste faz-se apenas uma vez e afecta todos os testes.
-
----
-
-## Estrutura de um Teste (Exemplo)
-
-```java
-@Test
-@DisplayName("TC2.2 – Pode-se digitar um nickname no campo")
-void testEnterNickname() {
-    final String testNickname = "TestPlayer123";     // Arrange
-    mainPage.enterNickname(testNickname);             // Act
-    String actualValue = mainPage.getNicknameValue(); // Act
-    assertEquals(testNickname, actualValue,           // Assert
-        "O nickname introduzido deve ser '" + testNickname + "'");
-}
-```
-
-Cada teste segue o padrão **Arrange → Act → Assert**.
-
----
-
-## Dependências Maven (pom.xml)
-
-```xml
-<!-- Selenium WebDriver 4 -->
-org.seleniumhq.selenium:selenium-java:4.27.0
-
-<!-- WebDriverManager (gestão automática de drivers) -->
-io.github.bonigarcia:webdrivermanager:5.9.2
-
-<!-- JUnit 5 -->
-org.junit.jupiter:junit-jupiter-api:5.11.3
-org.junit.jupiter:junit-jupiter-engine:5.11.3
-org.junit.jupiter:junit-jupiter-params:5.11.3
-
-<!-- Logging -->
-org.slf4j:slf4j-simple:2.0.16
-```
-
----
-
-## Problemas Comuns
-
-| Problema                          | Causa                               | Solução                                          |
-|-----------------------------------|-------------------------------------|--------------------------------------------------|
-| `SessionNotCreatedException`      | Versão ChromeDriver incompatível    | WebDriverManager resolve automaticamente         |
-| `TimeoutException`                | Selector não encontrou o elemento   | Inspecionar DOM e ajustar selector no Page Object|
-| `NoSuchElementException`          | Elemento não existe na página       | Verificar se a página carregou correctamente     |
-| `StaleElementReferenceException`  | Página foi actualizada              | Usar `waitForClickable()` antes de interagir     |
-| Chrome não abre                   | Google Chrome não instalado         | Instalar Chrome e tentar novamente               |
-| Testes lentos                     | Waits muito longos                  | Reduzir `DEFAULT_TIMEOUT` em `BasePage.java`     |
-
----
-
-## Documentação Adicional
-
-- [`docs/ProductBacklog.md`](docs/ProductBacklog.md) – Backlog completo com todos os PBIs
-- [`docs/UserStories.md`](docs/UserStories.md) – User Stories e rastreabilidade
-- [Selenium WebDriver Docs](https://www.selenium.dev/documentation/)
-- [JUnit 5 Docs](https://junit.org/junit5/docs/current/user-guide/)
-- [WebDriverManager Docs](https://bonigarcia.dev/webdrivermanager/)
+            └── iscteiul/
+                └── ista/
+                    └── blackbattleship/
+                        ├── MainPage.java
+                        └── MainPageTest.java
