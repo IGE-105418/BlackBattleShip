@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.Duration;
 
 /**
  * Testes de demonstração para o site da JetBrains.
