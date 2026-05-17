@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","34391","UserStoryTest1 - Aceder à página principal da Batalha Naval","","2026-05-17","passed","2026-05-17","","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest1","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest1","jogadorConsegueAcederPaginaPrincipal"
+"","37979","UserStoryTest2 - Consultar regras do jogo","","2026-05-17","passed","2026-05-17","","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest2","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest2","jogadorConsegueConsultarRegras"
+"","23202","UserStoryTest4 - Iniciar partida com amigo","","2026-05-17","passed","2026-05-17","","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest4","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest4","jogadorConsegueIniciarJogoComAmigo"
+"","196934","UserStoryTest3 - Iniciar partida contra robot","","2026-05-17","passed","2026-05-17","","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest3","iscteiul.ista.blackbattleship.fredson.tests.UserStoryTest3","jogadorConsegueIniciarJogoContraRobot"
