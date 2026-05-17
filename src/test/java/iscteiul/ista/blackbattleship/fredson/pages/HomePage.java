@@ -103,4 +103,15 @@ public class HomePage {
                 .scrollTo()
                 .click();
     }
+
+    @Step("Preencher nickname caso o campo esteja disponível")
+    public void preencherNicknameSeAparecer(String nickname) {
+        sleep(1000);
+
+        if ($$("input").findBy(Condition.visible).exists()) {
+            $$("input").findBy(Condition.visible)
+                    .shouldBe(Condition.visible)
+                    .setValue(nickname);
+        }
+    }
 }
