@@ -126,7 +126,7 @@ public class BattleshipSelenideTest {
     }
 
     @Test
-    @Story("US12 - Criar campeonato")
+    @Story("US14 - Criar campeonato")
     @Severity(SeverityLevel.MINOR)
     @Description("Valida se existe opção para criar campeonato.")
     @DisplayName("07 - Opção Create tournament está visível")
