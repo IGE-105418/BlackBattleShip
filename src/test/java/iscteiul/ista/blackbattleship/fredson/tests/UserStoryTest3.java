@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
  * UserStoryTest3:
  * Como jogador, quero iniciar uma partida contra um robot
  * para poder jogar sozinho.
+ * feito pelo Fredson
  */
 public class UserStoryTest3 extends BaseTest {
 
