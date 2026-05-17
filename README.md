@@ -4,7 +4,7 @@ Projeto laboratorial de Engenharia de Software para testes de caixa-preta/aceita
 
 Website em teste: [https://papergames.io/en/battleship](https://papergames.io/en/battleship)
 
-> **Vídeo de demonstração:** a adicionar no final da Parte 2.
+> **Vídeo de demonstração:** a adicionar em breve. Pedimos desculpa pelo ligeiro atraso na entrega do vídeo — o website esteve em baixo durante o período de desenvolvimento.
 
 ---
 

@@ -24,17 +24,17 @@ public class MainPage {
 
     // ─── Localizadores ───────────────────────────────────────────────────────
 
-    /** Botão "Developer Tools" no menu principal. */
+    /** Botão "Products" no menu principal (era "Developer Tools"). */
     private static final By DEVELOPER_TOOLS_BTN =
-            By.xpath("//*[@data-test-marker='Developer Tools']");
+            By.xpath("//button[@data-test='main-menu-item-action' and contains(@aria-label,'Products')]");
 
-    /** Botão "Find your tools" na sugestão de produtos. */
+    /** Link "Find your tool" na sugestão de produtos. */
     private static final By FIND_YOUR_TOOLS_BTN =
-            By.xpath("//*[@data-test='suggestion-action']");
+            By.cssSelector("[data-test='suggestion-link']");
 
-    /** Item de menu Developer Tools. */
+    /** Item de menu Products (era Developer Tools). */
     private static final By TOOLS_MENU =
-            By.xpath("//div[@data-test='main-menu-item' and @data-test-marker='Developer Tools']");
+            By.xpath("//div[@data-test='main-menu-item' and @data-test-marker='Products']");
 
     /** Botão de pesquisa no cabeçalho. */
     private static final By SEARCH_BUTTON =
@@ -42,23 +42,15 @@ public class MainPage {
 
     /** Campo de pesquisa (após clicar no botão). */
     private static final By SEARCH_INPUT =
-            By.cssSelector("[data-test='search-input']");
-
-    /** Botão "Full search". */
-    private static final By FULL_SEARCH_BTN =
-            By.cssSelector("button[data-test='full-search-button']");
+            By.cssSelector("[data-test='input__inner']");
 
     /** Campo de pesquisa na página de resultados. */
     private static final By SEARCH_INPUT_RESULTS =
-            By.cssSelector("input[data-test='search-input']");
+            By.cssSelector("input[data-test='input__inner']");
 
     /** Submenu de ferramentas. */
     private static final By MAIN_SUBMENU =
             By.cssSelector("div[data-test='main-submenu']");
-
-    /** Página de produtos. */
-    private static final By PRODUCTS_PAGE =
-            By.id("products-page");
 
     // ─── Construtor ──────────────────────────────────────────────────────────
 
@@ -84,7 +76,6 @@ public class MainPage {
      */
     public void search(String term) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_INPUT)).sendKeys(term);
-        wait.until(ExpectedConditions.elementToBeClickable(FULL_SEARCH_BTN)).click();
     }
 
     /**
@@ -122,15 +113,11 @@ public class MainPage {
     }
 
     /**
-     * Verifica se a página de todos os produtos está visível.
+     * Verifica se a página de produtos está visível (via URL).
      *
-     * @return true se a página estiver visível
+     * @return true se o URL contiver "/products/"
      */
     public boolean isProductsPageVisible() {
-        try {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(PRODUCTS_PAGE)).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+        return wait.until(d -> d.getCurrentUrl().contains("/products/"));
     }
 }
