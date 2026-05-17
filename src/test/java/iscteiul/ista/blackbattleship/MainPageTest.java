@@ -1,6 +1,5 @@
 package iscteiul.ista.blackbattleship;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -12,9 +11,23 @@ import java.time.Duration;
 
 import java.time.Duration;
 
-@Disabled("Teste de demonstração do IntelliJ. Substituído pelos testes do BlackBattleship.")
-public class MainPageTest {
-    MainPage mainPage = new MainPage();
+/**
+ * Testes de demonstração para o site da JetBrains.
+ *
+ * <p>Esta classe faz parte do projeto-piloto (Parte 1A da ficha laboratorial).
+ * Destina-se a aprender o padrão POM e o Selenium antes de testar o BlackBattleShip.</p>
+ *
+ * <p>Cada membro do grupo deve:
+ * <ol>
+ *   <li>Executar estes testes no seu ramo de trabalho.</li>
+ *   <li>Corrigir localizadores que possam ter ficado desactualizados.</li>
+ *   <li>Fazer Push do ramo (SEM Pull Request para main).</li>
+ * </ol>
+ * </p>
+ */
+@DisplayName("Parte 1A – Demo: Testes JetBrains (projecto-piloto)")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class MainPageTest {
 
     private WebDriver driver;
     private MainPage mainPage;
