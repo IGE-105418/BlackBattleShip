@@ -12,6 +12,7 @@ import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
+@Disabled("Teste de demonstração do IntelliJ. Substituído pelos testes do BlackBattleship.")
 public class MainPageTest {
     MainPage mainPage = new MainPage();
 
