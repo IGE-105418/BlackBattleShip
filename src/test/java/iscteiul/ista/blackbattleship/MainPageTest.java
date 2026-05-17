@@ -2,12 +2,12 @@ package iscteiul.ista.blackbattleship;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import static org.junit.jupiter.api.Assertions.*;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import java.time.Duration;
 
 import java.time.Duration;
 
@@ -46,6 +46,10 @@ class MainPageTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.get("https://www.jetbrains.com/");
+        try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+        ((JavascriptExecutor) driver).executeScript(
+            "var el = document.querySelector('.ch2-container'); if(el) el.remove();"
+        );
         mainPage = new MainPage(driver);
     }
 
