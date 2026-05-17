@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
  * UserStoryTest4:
  * Como jogador, quero iniciar uma partida com um amigo
  * para poder partilhar o jogo com outro jogador.
+ * feito pelo fredson
  */
 public class UserStoryTest4 extends BaseTest {
 
