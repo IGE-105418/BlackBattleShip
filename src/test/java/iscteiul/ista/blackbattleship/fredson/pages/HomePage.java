@@ -1,6 +1,7 @@
 package iscteiul.ista.blackbattleship.fredson.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -88,20 +89,24 @@ public class HomePage {
     public void clicarPlayVsRobot() {
         voltarAoTopo();
 
-        $x("//*[self::button or self::a][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'robot')]")
-                .shouldBe(Condition.visible)
-                .scrollTo()
-                .click();
+        SelenideElement botaoRobot = $x(
+                "//*[self::button or self::a]" +
+                        "[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'robot')]"
+        ).shouldBe(Condition.visible);
+
+        clicarComJavaScript(botaoRobot);
     }
 
     @Step("Clicar na opção para jogar com um amigo")
     public void clicarPlayWithFriend() {
         voltarAoTopo();
 
-        $x("//*[self::button or self::a][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'friend')]")
-                .shouldBe(Condition.visible)
-                .scrollTo()
-                .click();
+        SelenideElement botaoFriend = $x(
+                "//*[self::button or self::a]" +
+                        "[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'friend')]"
+        ).shouldBe(Condition.visible);
+
+        clicarComJavaScript(botaoFriend);
     }
 
     @Step("Preencher nickname caso o campo esteja disponível")
@@ -113,5 +118,21 @@ public class HomePage {
                     .shouldBe(Condition.visible)
                     .setValue(nickname);
         }
+    }
+
+    @Step("Clicar num elemento usando JavaScript")
+    private void clicarComJavaScript(SelenideElement elemento) {
+        executeJavaScript("""
+            arguments[0].scrollIntoView({
+                behavior: 'instant',
+                block: 'center'
+            });
+        """, elemento);
+
+        sleep(1000);
+
+        executeJavaScript("arguments[0].click();", elemento);
+
+        sleep(2000);
     }
 }
