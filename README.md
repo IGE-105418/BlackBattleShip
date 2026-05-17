@@ -213,6 +213,58 @@ Os testes procuram validar o comportamento da aplicação do ponto de vista do u
 
 ---
 
+### US15 – Utilizar o Chat Global/Privado
+
+**Como** jogador,  
+**quero** aceder à página de chat (/en/chat),  
+**para** poder comunicar e interagir com outros utilizadores da plataforma.
+
+**Critérios de aceitação:**
+- A interface de chat deve carregar corretamente e apresentar os canais ou conversas disponíveis.
+- O jogador deve conseguir escrever e enviar uma mensagem de texto.
+- As mensagens enviadas devem aparecer de imediato no histórico da conversa correspondente.
+
+---
+
+### US16 – Consultar e gerir a lista de amigos
+
+**Como** jogador,  
+**quero** aceder à secção de amigos (/en/friends),  
+**para** ver quem está online e gerir a minha rede de contactos no jogo.
+
+**Critérios de aceitação:**
+- A página deve listar corretamente os amigos atualmente adicionados.
+- Deve ser possível identificar o estado dos amigos (ex.: online, offline, a jogar).
+- Deve existir uma opção visível para procurar ou adicionar um novo amigo.
+
+---
+
+### US17 – Consultar o histórico de partidas de Batalha Naval
+
+**Como** jogador,  
+**quero** aceder à página de histórico com o filtro de Batalha Naval ativo (/en/match-history?gameType=Battleships),  
+**para** analisar o meu desempenho e os resultados das minhas últimas partidas.
+
+**Critérios de aceitação:**
+- A lista apresentada deve conter apenas partidas do jogo "Batalha Naval".
+- Cada registo deve indicar claramente a data, o adversário e o resultado (Vitória/Derrota).
+- A página deve informar corretamente caso o jogador ainda não tenha partidas registadas.
+
+---
+
+### US18 – Explorar avatares na Loja
+
+**Como** jogador,  
+**quero** aceder à secção de avatares na loja (/en/shop/avatars),  
+**para** poder personalizar a imagem do meu perfil.
+
+**Critérios de aceitação:**
+- A loja deve apresentar o catálogo de avatares disponíveis.
+- Cada avatar deve exibir o seu respetivo preço em moedas virtuais ou indicar se é gratuito.
+- O jogador deve conseguir clicar num avatar para ver os detalhes ou tentar equipá-lo/comprá-lo.
+
+---
+
 ## Tecnologias Utilizadas
 
 | Tecnologia | Propósito |
