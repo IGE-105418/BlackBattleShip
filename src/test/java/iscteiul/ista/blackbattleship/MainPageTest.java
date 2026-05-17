@@ -12,23 +12,9 @@ import java.time.Duration;
 
 import java.time.Duration;
 
-/**
- * Testes de demonstração para o site da JetBrains.
- *
- * <p>Esta classe faz parte do projeto-piloto (Parte 1A da ficha laboratorial).
- * Destina-se a aprender o padrão POM e o Selenium antes de testar o BlackBattleShip.</p>
- *
- * <p>Cada membro do grupo deve:
- * <ol>
- *   <li>Executar estes testes no seu ramo de trabalho.</li>
- *   <li>Corrigir localizadores que possam ter ficado desactualizados.</li>
- *   <li>Fazer Push do ramo (SEM Pull Request para main).</li>
- * </ol>
- * </p>
- */
-@DisplayName("Parte 1A – Demo: Testes JetBrains (projecto-piloto)")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class MainPageTest {
+@Disabled("Teste de demonstração do IntelliJ. Substituído pelos testes do BlackBattleship.")
+public class MainPageTest {
+    MainPage mainPage = new MainPage();
 
     private WebDriver driver;
     private MainPage mainPage;
