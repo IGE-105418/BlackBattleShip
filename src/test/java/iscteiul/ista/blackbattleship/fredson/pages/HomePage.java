@@ -40,23 +40,67 @@ public class HomePage {
         $("body").shouldHave(Condition.text("robot"));
     }
 
+    @Step("Fazer scroll até à secção das regras do jogo")
+    public void scrollAteAsRegras() {
+        $("body").shouldBe(Condition.visible);
+
+        executeJavaScript("""
+            const possibleElements = Array.from(
+                document.querySelectorAll('h1, h2, h3, h4, h5, p, section')
+            );
+
+            const rulesElement = possibleElements.find(element => {
+                const text = element.innerText ? element.innerText.toLowerCase() : '';
+                return text.includes('rules of battleship')
+                    || text.includes('rules')
+                    || text.includes('how to play');
+            });
+
+            if (rulesElement) {
+                rulesElement.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'center'
+                });
+            } else {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'instant'
+                });
+            }
+        """);
+
+        sleep(2000);
+    }
+
     @Step("Validar que as regras do jogo estão visíveis na página")
     public void validarRegrasDoJogo() {
         $("body").shouldHave(Condition.text("Rules"));
         $("body").shouldHave(Condition.text("Battleship"));
     }
 
+    @Step("Voltar ao topo da página")
+    public void voltarAoTopo() {
+        executeJavaScript("window.scrollTo({ top: 0, behavior: 'instant' });");
+        sleep(1000);
+    }
+
     @Step("Clicar na opção para jogar contra robot")
     public void clicarPlayVsRobot() {
-        $$("button, a").findBy(Condition.text("robot"))
+        voltarAoTopo();
+
+        $x("//*[self::button or self::a][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'robot')]")
                 .shouldBe(Condition.visible)
+                .scrollTo()
                 .click();
     }
 
     @Step("Clicar na opção para jogar com um amigo")
     public void clicarPlayWithFriend() {
-        $$("button, a").findBy(Condition.text("friend"))
+        voltarAoTopo();
+
+        $x("//*[self::button or self::a][contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'friend')]")
                 .shouldBe(Condition.visible)
+                .scrollTo()
                 .click();
     }
 }

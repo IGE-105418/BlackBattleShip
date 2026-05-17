@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Page Object da página ou zona de jogo.
@@ -14,10 +15,6 @@ public class GamePage {
     @Step("Validar que a zona de jogo ou configuração da partida foi apresentada")
     public void validarZonaDeJogoOuConfiguracao() {
         $("body").shouldBe(Condition.visible);
-    }
-
-    @Step("Validar que existe conteúdo relacionado com a partida")
-    public void validarConteudoDaPartida() {
-        $("body").shouldBe(Condition.visible);
+        sleep(2000);
     }
 }
