@@ -20,12 +20,48 @@ public class HomePage {
 
     @Step("Aceitar cookies caso apareça uma janela de consentimento")
     public void aceitarCookiesSeAparecer() {
-        if ($$("button").findBy(Condition.exactText("Accept")).exists()) {
-            $$("button").findBy(Condition.exactText("Accept")).click();
-        } else if ($$("button").findBy(Condition.exactText("OK")).exists()) {
-            $$("button").findBy(Condition.exactText("OK")).click();
-        } else if ($$("button").findBy(Condition.text("Accept")).exists()) {
-            $$("button").findBy(Condition.text("Accept")).click();
+        // # Espera curta para dar tempo à janela de consentimento/cookies aparecer.
+        sleep(1000);
+
+        try {
+            SelenideElement botaoConsentimento = $x(
+                    "//button[" +
+                            "contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'accept') or " +
+                            "contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'agree') or " +
+                            "contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'consent') or " +
+                            "contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'ok')" +
+                            "]"
+            );
+
+            if (botaoConsentimento.exists() && botaoConsentimento.isDisplayed()) {
+                clicarComJavaScript(botaoConsentimento);
+                sleep(1000);
+            }
+        } catch (Exception ignored) {
+            // # Se não houver botão de cookies, continua o teste normalmente.
+        }
+
+        // # Fallback para overlays do tipo Funding Choices/Google Consent que podem bloquear cliques.
+        try {
+            executeJavaScript("""
+            const selectors = [
+                '.fc-dialog-container',
+                '.fc-consent-root',
+                '.fc-dialog',
+                '[class*="fc-dialog"]',
+                '[class*="fc-consent"]'
+            ];
+
+            selectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(element => {
+                    element.style.display = 'none';
+                    element.style.visibility = 'hidden';
+                    element.style.pointerEvents = 'none';
+                });
+            });
+        """);
+        } catch (Exception ignored) {
+            // # Se não existir overlay, não há nada para remover.
         }
     }
 
@@ -111,13 +147,84 @@ public class HomePage {
 
     @Step("Preencher nickname caso o campo esteja disponível")
     public void preencherNicknameSeAparecer(String nickname) {
+        // # Garante que overlays/cookies não bloqueiam o campo de nickname.
+        aceitarCookiesSeAparecer();
         sleep(1000);
 
-        if ($$("input").findBy(Condition.visible).exists()) {
-            $$("input").findBy(Condition.visible)
-                    .shouldBe(Condition.visible)
-                    .setValue(nickname);
+        try {
+            SelenideElement inputNickname = $x(
+                    "//input[" +
+                            "@formcontrolname='username' or " +
+                            "@placeholder='Nickname' or " +
+                            "contains(translate(@placeholder, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'nickname') or " +
+                            "contains(translate(@placeholder, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'name')" +
+                            "]"
+            );
+
+            if (inputNickname.exists() && inputNickname.isDisplayed() && inputNickname.isEnabled()) {
+                // # Não usamos click normal porque o overlay pode interceptar o clique.
+                // # Em vez disso, escrevemos via JavaScript e disparamos eventos input/change.
+                executeJavaScript("""
+                const input = arguments[0];
+                const value = arguments[1];
+
+                input.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'center'
+                });
+
+                input.focus();
+                input.value = value;
+
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            """, inputNickname, nickname);
+
+                sleep(1000);
+                return;
+            }
+        } catch (Exception ignored) {
+            // # Se o campo específico falhar, tenta fallback abaixo.
         }
+
+        // # Fallback: tenta todos os inputs de texto até encontrar um utilizável.
+        var inputs = $$("input");
+
+        for (SelenideElement input : inputs) {
+            try {
+                String type = input.getAttribute("type");
+
+                if ("hidden".equalsIgnoreCase(type)) {
+                    continue;
+                }
+
+                if (input.isDisplayed() && input.isEnabled()) {
+                    executeJavaScript("""
+                    const input = arguments[0];
+                    const value = arguments[1];
+
+                    input.scrollIntoView({
+                        behavior: 'instant',
+                        block: 'center'
+                    });
+
+                    input.focus();
+                    input.value = value;
+
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                """, input, nickname);
+
+                    sleep(1000);
+                    return;
+                }
+            } catch (Exception ignored) {
+                // # Se este input não aceitar texto, tenta o próximo.
+            }
+        }
+
+        // # Se não houver campo de nickname editável, o teste não deve falhar aqui.
+        // # Alguns fluxos do site permitem continuar sem nickname explícito.
     }
 
     @Step("Clicar num elemento usando JavaScript")
