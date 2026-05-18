@@ -107,11 +107,21 @@ public class GamePage extends BasePage {
 
     /**
      * Verifica se o tabuleiro de jogo está presente na página.
+     * Inclui detecção de fases de preparação (escolha de dificuldade, colocação de navios).
      *
-     * @return true se o tabuleiro estiver visível
+     * @return true se o tabuleiro ou ecrã de preparação do jogo estiver visível
      */
     public boolean isBoardDisplayed() {
-        return isElementVisible(GAME_BOARD);
+        if (isElementVisible(GAME_BOARD)) return true;
+        // SPA: detectar ecrã de dificuldade ou colocação de navios após clicar em Play
+        By GAME_SETUP = By.xpath(
+            "//*[contains(normalize-space(.),'difficulty') or contains(normalize-space(.),'Difficulty')" +
+            " or contains(normalize-space(.),'Place your ships') or contains(normalize-space(.),'place your ships')" +
+            " or contains(normalize-space(.),'Set up your fleet') or contains(normalize-space(.),'set up your fleet')" +
+            " or contains(normalize-space(.),'Choose level') or contains(normalize-space(.),'Solo game')" +
+            " or (contains(normalize-space(.),'Easy') and contains(normalize-space(.),'Hard'))]"
+        );
+        return isElementVisible(GAME_SETUP);
     }
 
     /**

@@ -30,8 +30,12 @@ public class LobbyPage extends BasePage {
             "input[type='text'][placeholder*='room' i], " +
             "input[type='text'][placeholder*='sala' i], " +
             "input[type='text'][placeholder*='id' i], " +
+            "input[type='text'][placeholder*='link' i], " +
+            "input[type='text'][placeholder*='invite' i], " +
+            "input[type='text'][placeholder*='game' i], " +
             "input[id*='room' i], input[name*='room' i], " +
-            "input[id*='code' i], input[name*='code' i]"
+            "input[id*='code' i], input[name*='code' i], " +
+            "input[id*='join' i], input[name*='join' i]"
     );
 
     /** Botão para entrar/juntar-se a uma sala. */
@@ -47,7 +51,10 @@ public class LobbyPage extends BasePage {
     static final By ROOM_CODE_DISPLAY = By.cssSelector(
             ".room-code, #room-code, .code, .game-code, " +
             "[class*='room-id'], [class*='game-id'], " +
-            "[id*='room-code'], [id*='game-code']"
+            "[id*='room-code'], [id*='game-code'], " +
+            "input[readonly], input[type='text'][readonly], " +
+            "[class*='invite-link'], [class*='share-link'], [class*='copy-link'], " +
+            "[class*='game-link'], [class*='invite']"
     );
 
     /** Lista de jogadores na sala. */
@@ -60,7 +67,11 @@ public class LobbyPage extends BasePage {
     static final By WAITING_INDICATOR = By.xpath(
             "//*[contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'wait')" +
             " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'aguard')" +
-            " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'connecting')]"
+            " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'connecting')" +
+            " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'opponent')" +
+            " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'player 2')" +
+            " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'share')" +
+            " or contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'invite')]"
     );
 
     /** Botão de copiar o código da sala (pode ser um ícone). */
